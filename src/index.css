@@ -1,0 +1,59 @@
+/* 1. Thiết lập biến môi trường cơ bản */
+:root {
+  /* Font chữ chuẩn cho ứng dụng web hiện đại */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* QUAN TRỌNG: Ép buộc chế độ Sáng (Light Mode) */
+  /* Dòng này giúp loại bỏ nền đen khi máy tính user đang để Dark Mode */
+  color-scheme: light; 
+  
+  /* Màu chữ và nền mặc định */
+  color: #213547;
+  background-color: #ffffff;
+
+  /* Tối ưu hiển thị font chữ */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Reset thẻ Body */
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  
+  /* QUAN TRỌNG: Sửa lỗi layout bị co cụm vào giữa */
+  /* Vite mặc định để 'flex' và 'center', ta đổi thành 'block' để layout tràn màn hình */
+  display: block; 
+}
+
+/* 3. Cấu hình thẻ Root (Nơi React mount vào) */
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* Đảm bảo nội dung căn trái chuẩn tắc, không bị căn giữa */
+  text-align: left; 
+}
+
+/* 4. Tùy chỉnh thanh cuộn (Scrollbar) cho đẹp (Optional) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8; 
+}
