@@ -1,23 +1,45 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthProvider';
+import PrivateRoute from './routes/PrivateRoute';
 import CustomerPortal from './pages/CustomerPortal';
 import AgentDashboard from './pages/AgentDashboard';
 
-const { Header, Content } = Layout;
-
 function App() {
   return (
-    <BrowserRouter>
-      {/* KHÔNG CÒN LAYOUT HAY HEADER CHUNG Ở ĐÂY NỮA */}
-      <Routes>
-        {/* Route dành cho Khách hàng (Giao diện clean, sáng) */}
-        <Route path="/" element={<CustomerPortal />} />
+    // 1. Bọc toàn bộ App trong AuthProvider
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          
+          {/* --- ROUTE CÔNG KHAI (Ai cũng vào được) --- */}
+          {/* Ví dụ: Trang giới thiệu, trang lỗi */}
+          
+          {/* --- ROUTE DÀNH CHO KHÁCH HÀNG --- */}
+          <Route 
+            path="/portal/home" 
+            element={
+              <PrivateRoute allowedRoles={['CUSTOMER', 'ADMIN']}>
+                <CustomerPortal />
+              </PrivateRoute>
+            } 
+          />
+          {/* Mặc định vào portal */}
+          <Route path="/" element={<CustomerPortal />} /> 
 
-        {/* Route dành cho Agent (Giao diện Dashboard, tối hoặc nhiều dữ liệu) */}
-        <Route path="/admin" element={<AgentDashboard />} />
-      </Routes>
-    </BrowserRouter>
+          {/* --- ROUTE DÀNH CHO AGENT/ADMIN --- */}
+          <Route 
+            path="/agent/workspace" 
+            element={
+              <PrivateRoute allowedRoles={['INTERNAL_AGENT', 'ADMIN']}>
+                <AgentDashboard />
+              </PrivateRoute>
+            } 
+          />
+
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

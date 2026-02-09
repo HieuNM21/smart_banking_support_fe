@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: 'http://10.2.22.54:8080',
+  // baseURL: 'http://10.2.22.54:8080',
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 // Interceptor xử lý response
