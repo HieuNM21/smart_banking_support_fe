@@ -12,6 +12,11 @@ export const AuthProvider = ({ children }) => {
       try {
         const data = await axiosClient.get('/api/auth/me');
         setUser(data);
+        const redirectUrl = localStorage.getItem('redirectUrl');
+        if (redirectUrl) {
+           localStorage.removeItem('redirectUrl'); 
+           window.location.href = redirectUrl; 
+        }
       } catch (error) {
         console.log(error);
         setUser(null);
@@ -23,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = () => {
+    localStorage.setItem('redirectUrl', window.location.pathname);
     window.location.href = '/api/auth/login';
   };
 
