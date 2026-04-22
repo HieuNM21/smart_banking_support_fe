@@ -7,7 +7,6 @@ import AgentDashboard from './pages/AgentDashboard';
 
 function App() {
   return (
-    // 1. Bọc toàn bộ App trong AuthProvider
     <AuthProvider>
       <BrowserRouter>
         <Routes>
